@@ -12,19 +12,24 @@
 </head>
 <body>
 <p th:text="'hello thymeleaf'"></p>
+
+<a th:href="@{/excel/download}">导出excel</a>
+
 <input id="excelInput" name="excelInput" type="file"
        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel "/>
 <button id="action457330222" namecn="导入" type="button"
-        onclick=" importExcel() ">导入
+        onclick="importExcel() ">导入
 </button>
 </body>
 <script>
 
     function importExcel() {
+        var ctx = '[[${#request.contextPath}]]';
         var formData = new FormData();
         formData.append("excelInput", document.getElementById("excelInput").files[0]);
+        var url=ctx+"/excel/testExcel";
         $.ajax({
-            url: "/testExcel",
+            url: url,
             data: formData,
             type: 'POST',
             dataType: 'json',
